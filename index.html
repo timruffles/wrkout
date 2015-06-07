@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="utf-8">
-    <title>Angular Simple Skeleton</title>
+  <meta charset="utf-8">
+  <title>Workouts</title>
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <meta http-equiv="cleartype" content="on">
+  <link rel="stylesheet" href="style.css">
+
 </head>
-<body ng-app=simple>
-    <div class=row>
+<body ng-app=workouts>
 
-      <h1>Hello {{ something }}</h1>
-      <form>
-        <input ng-model=something ng-init='something = "angular"' >
-      </form>
+  <div class="row" ng-controller='WorkoutCtrl as ctrl'>
+    <h1>Workouts</h1>
 
-      <p class='alert-box success'>The above is just to show AngularJS has booted fine. Delete this placeholder HTML and modify <code>app.js</code>.</p>
+    <form name='newExcerciseForm'
+      ng-submit="ctrl.create()"
+      >
+      <fieldset name="fromOld">
+        <label>
+          Exercise
+        </label>
+        <input name=name ng-model=ctrl.exercise.name>
 
-    </div>
+        <label>
+          Weight
+        </label>
+        <input name=weight ng-model=ctrl.exercise.weight>
 
-    <script src="angular.js"></script>
-    <script src="app.js"></script>
+        <label>
+          Reps
+        </label>
+        <input name=reps ng-model=ctrl.exercise.reps>
+
+      </fieldset>
+      <fieldset name="overload">
+        <label>
+          Overload
+        </label>
+        <input name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
+
+        <label>
+          New Reps
+        </label>
+        <input name=overloadReps ng-model=ctrl.exercise.targetReps>
+
+        <label>
+          New Weight
+        </label>
+        <span class=output>{{ ctrl.overloadWeight() | number }}kg</span>
+      </fieldset>
+      <fieldset>
+        <label>
+          Reps Achieved
+        </label>
+        <input name=actualReps ng-model=ctrl.exercise.actualReps>
+
+      </fieldset>
+
+      <input type=submit>
+    </form>
+
+    <ul class='exercises'>
+      <li ng-repeat='performance in ctrl.performances track by performance.id'>
+        {{ performance.description }}
+      </li>
+    </ul>
+
+  </div>
+
+  <script src="angular.js"></script>
+  <script src="lodash.js"></script>
+  <script src="app.js"></script>
 </body>

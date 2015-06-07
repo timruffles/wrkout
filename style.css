@@ -1,0 +1,76 @@
+
+body {
+  font-family: "open-sans", helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(hsl(194, 47%, 73%) 10%, hsl(65, 36%, 77%) 90%);
+}
+
+
+h1 {
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+}
+
+label, input {
+  font-size: 1em;
+  color: #fff;
+}
+
+fieldset {
+  border: none;
+}
+
+label, input, .output {
+  float: left;
+  margin: 0 0 1em 0;
+  padding: 0.25em;
+}
+
+label {
+  display: block;
+  clear: left;
+  width: 50%;
+  text-align: right;
+  padding-right: 1em;
+
+}
+
+input {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  width: 50%;
+}
+
+
+form {
+  overflow: auto;
+}
+
+input[type=submit] {
+  width: 80%;
+  margin: 0 10% 0 10%;
+  padding: 1em;
+}
+
+
+
+.exercises {
+  list-style-type: none;
+  padding: 0rem;
+  margin: 1em 0 0 0;
+}
+.exercises li {
+  width: 100%;
+  background: rgba(255,255,255,0.4);
+  padding: 0.5rem;
+}
