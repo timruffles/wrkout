@@ -21,10 +21,10 @@
       <fieldset name="fromOld">
         <input name=name ng-model=ctrl.exercise.name>
         x
-        <input name=reps ng-model=ctrl.exercise.reps>
+        <input type=number name=reps ng-model=ctrl.exercise.reps>
         reps at
 
-        <input name=weight ng-model=ctrl.exercise.weight>
+        <input type=number name=weight ng-model=ctrl.exercise.weight>
         kg
       </fieldset>
       <fieldset name="overload">
@@ -32,14 +32,14 @@
           <label>
             Overload
           </label>
-          <input name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
+          <input type=number name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
         </div>
 
         <div>
           <label>
             New Reps
           </label>
-          <input name=overloadReps ng-model=ctrl.exercise.targetReps>
+          <input type=number name=overloadReps ng-model=ctrl.exercise.targetReps>
         </div>
 
         <div>
