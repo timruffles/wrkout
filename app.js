@@ -48,6 +48,7 @@ function WorkoutCtrl(
 
   this.create = function() {
     this.exercises.push({
+      id: Date.now() + "-" + self.exercise.name,
       name: self.exercise.name,
       weight: self.overloadWeight(),
       reps: self.exercise.actualReps,
@@ -71,33 +72,16 @@ function WorkoutCtrl(
   }
     
   function createPerformances() {
-    var byDay = _.groupBy(self.exercises, _.compose(getDay, _.property("createdAt")));
-
-    return _(byDay)
-      .keys()
-      .sort()
-      .reverse()
-      .map(function(day) {
-        var grouped = _.groupBy(byDay[day], "name");
-
-        return _.sortBy(grouped, function(group) {
-          return _.max(_.pluck(group, "createdAt"));
-        })
-        .map(toPerformance);
-      })
-      .flatten()
-      .value();
+    return _.map(self.exercises, toPerformance)
   }
 
-  function toPerformance(group) {
-    var sets = group.length; 
-    var maxReps = _.max(_.pluck(group, "reps"));
+  function toPerformance(ex) {
     return {
-      id: getDay(group[0].createdAt) + "-" + group[0].name,
-      description: group[0].name + " " + sets + "x" + maxReps + " " + formatWeight(group[0].weight),
-      name: group[0].name,
-      reps: group[0].targetReps,
-      weight: group[0].weight,
+      id: ex.id,
+      description: ex.name + " " + ex.reps + "x" + formatWeight(ex.weight),
+      name: ex.name,
+      reps: ex.targetReps,
+      weight: ex.weight,
     }
   }
 

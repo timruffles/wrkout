@@ -57,9 +57,12 @@ input[type=submit] {
   list-style-type: none;
   padding: 0rem;
   margin: 1em 0 0 0;
+  height: 400px;
+  overflow-y: scroll;
 }
 .exercises li {
   width: 100%;
   background: rgba(255,255,255,0.4);
   padding: 0.5rem;
+  margin-bottom: 2px;
 }
