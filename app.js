@@ -63,7 +63,7 @@ function WorkoutCtrl(
   this.overloadWeight = function() {
     var referenceOverload = self.exercise.weight * ( 1 + self.exercise.percentIncrease / 100 );
     var overloaded = referenceOverload * 
-      (1 + REP_INCREASE_TO_WAIT_RATIO * (self.exercise.reps - self.exercise.reps));
+      (1 + REP_INCREASE_TO_WAIT_RATIO * (self.exercise.reps - self.exercise.targetReps));
     return overloaded;
   }
 
