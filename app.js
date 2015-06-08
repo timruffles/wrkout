@@ -60,6 +60,11 @@ function WorkoutCtrl(
     autoSave();
   };
 
+  this.remove = function(index) {
+    self.exercises.splice(index, 1);
+    self.performances = createPerformances();
+  }
+
   this.overloadWeight = function() {
     var referenceOverload = self.exercise.weight * ( 1 + self.exercise.percentIncrease / 100 );
     var overloaded = referenceOverload * 

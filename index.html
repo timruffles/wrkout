@@ -64,6 +64,9 @@
       <li ng-repeat='performance in ctrl.performances track by performance.id'
           ng-click='ctrl.performanceSelected(performance)'>
         {{ performance.description }}
+        <button class=remove ng-click='ctrl.remove($index)'>
+          X
+        </button>
       </li>
     </ul>
 

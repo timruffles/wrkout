@@ -65,4 +65,18 @@ input[type=submit] {
   background: rgba(255,255,255,0.4);
   padding: 0.5rem;
   margin-bottom: 2px;
+  position: relative;
+  height: 2em;
+}
+
+.exercises .remove {
+  background: hsla(14, 97%, 63%, 0.59);
+  display: block;
+  border: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 2rem;
+  color: #fff;
+  padding: 0 2rem;
 }
