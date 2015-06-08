@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  background: linear-gradient(hsl(194, 47%, 73%) 10%, hsl(65, 36%, 77%) 90%);
+  background: linear-gradient(hsl(194, 94%, 33%) 10%, hsl(267, 86%, 69%) 90%);
 }
 
 
@@ -30,25 +30,14 @@ fieldset {
   border: none;
 }
 
-label, input, .output {
-  float: left;
-  margin: 0 0 1em 0;
-  padding: 0.25em;
-}
 
-label {
-  display: block;
-  clear: left;
-  width: 50%;
-  text-align: right;
-  padding-right: 1em;
 
-}
 
 input {
   background: rgba(255,255,255,0.2);
   border: none;
-  width: 50%;
+  display: inline-block;
+  width: 4em;
 }
 
 

@@ -19,37 +19,35 @@
       ng-submit="ctrl.create()"
       >
       <fieldset name="fromOld">
-        <label>
-          Exercise
-        </label>
         <input name=name ng-model=ctrl.exercise.name>
-
-        <label>
-          Weight
-        </label>
-        <input name=weight ng-model=ctrl.exercise.weight>
-
-        <label>
-          Reps
-        </label>
+        x
         <input name=reps ng-model=ctrl.exercise.reps>
+        reps at
 
+        <input name=weight ng-model=ctrl.exercise.weight>
+        kg
       </fieldset>
       <fieldset name="overload">
-        <label>
-          Overload
-        </label>
-        <input name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
+        <div>
+          <label>
+            Overload
+          </label>
+          <input name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
+        </div>
 
-        <label>
-          New Reps
-        </label>
-        <input name=overloadReps ng-model=ctrl.exercise.targetReps>
+        <div>
+          <label>
+            New Reps
+          </label>
+          <input name=overloadReps ng-model=ctrl.exercise.targetReps>
+        </div>
 
-        <label>
-          New Weight
-        </label>
-        <span class=output>{{ ctrl.overloadWeight() | number }}kg</span>
+        <div>
+          <label>
+            New Weight
+          </label>
+          <span class=output>{{ ctrl.overloadWeight() | number }}kg</span>
+        </div>
       </fieldset>
       <fieldset>
         <label>
@@ -63,7 +61,8 @@
     </form>
 
     <ul class='exercises'>
-      <li ng-repeat='performance in ctrl.performances track by performance.id'>
+      <li ng-repeat='performance in ctrl.performances track by performance.id'
+          ng-click='ctrl.performanceSelected(performance)'>
         {{ performance.description }}
       </li>
     </ul>

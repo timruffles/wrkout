@@ -18,28 +18,12 @@ function WorkoutCtrl(
 
   var REP_INCREASE_TO_WAIT_RATIO = 0.025;
 
+  var storage = new Storage;
+  var autoSave = _.debounce(save, 500, { trailing: true });
+
   function init() {
 
-    self.exercises = [
-      {
-        name: "Deadlift",
-        weight: 70,
-        reps: 5,
-        percentIncrease: 2.5, 
-        suggestedReps: 10,
-        reps: 5,
-        createdAt: new Date,
-      },
-      {
-        name: "Deadlift",
-        weight: 70,
-        reps: 5,
-        percentIncrease: 2.5, 
-        suggestedReps: 10,
-        reps: 5,
-        createdAt: new Date,
-      },
-    ];
+    self.exercises = storage.get();
     
     self.exercise = {
       name: "Deadlift",
@@ -47,13 +31,20 @@ function WorkoutCtrl(
       reps: 5,
       percentIncrease: 2.5, 
       targetReps: 10,
-      reps: 5,
+      actualReps: 5,
     };
 
     self.performances = createPerformances();
+
+
+    window.addEventListener("beforeunload", save);
   }
 
   init();
+
+  this.performanceSelected = function(performance) {
+    _.extend(self.exercise, _.pick(performance, "name", "weight", "reps"));
+  };
 
   this.create = function() {
     this.exercises.push({
@@ -65,6 +56,7 @@ function WorkoutCtrl(
       createdAt: new Date,
     });
     self.performances = createPerformances();
+    autoSave();
   };
 
   this.overloadWeight = function() {
@@ -74,6 +66,9 @@ function WorkoutCtrl(
     return overloaded;
   }
 
+  function save() {
+    storage.save(self.exercises);
+  }
     
   function createPerformances() {
     var byDay = _.groupBy(self.exercises, _.compose(getDay, _.property("createdAt")));
@@ -100,6 +95,9 @@ function WorkoutCtrl(
     return {
       id: getDay(group[0].createdAt) + "-" + group[0].name,
       description: group[0].name + " " + sets + "x" + maxReps + " " + formatWeight(group[0].weight),
+      name: group[0].name,
+      reps: group[0].targetReps,
+      weight: group[0].weight,
     }
   }
 
@@ -124,30 +122,33 @@ function WorkoutCtrl(
 
 function Storage() {
 
-  var keys = localStorage.appKeys = localStorage.appKeys || [];
   var loaded;
   var self = this;
-
   
   this.get = function() {
     if(!loaded) {
-      loaded = {};
-      keys.forEach(fromStorage);
+      loaded = fromStorage();
     }
     return loaded;
   }
 
-  this.save = function() {
-    Object.keys(loaded).forEach(toStorage);
+  this.save = function(items) {
+    localStorage["performances"] = JSON.stringify(items);
   }
 
   function fromStorage(k) {
-    loaded[k] = JSON.parse(localStorage[k] || "{}");
+    return JSON.parse(localStorage["performances"] || "[]", reviver);
   }
 
-  function toStorage(k) {
-    localStorage[k] = JSON.stringify(v);
+  function reviver(k,v) {
+    if(k === "createdAt") {
+      return new Date(Date.parse(v));
+    } else {
+      return v;
+    }
   }
+
+
 }
 
 
