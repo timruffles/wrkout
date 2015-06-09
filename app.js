@@ -3,6 +3,8 @@
 
 angular.module("workouts",[])
   .controller("WorkoutCtrl", WorkoutCtrl)
+  .filter("nearestQuarter", _.constant(nearestQuarter))
+  .directive("nearestQuarter", nearestQuarterDirective)
 
 
 
@@ -77,7 +79,11 @@ function WorkoutCtrl(
   }
     
   function createPerformances() {
-    return _.map(self.exercises, toPerformance)
+    return _(self.exercises)
+      .sortBy("createdAt")
+      .reverse()
+      .map(toPerformance)
+      .value();
   }
 
   function toPerformance(ex) {
@@ -91,7 +97,7 @@ function WorkoutCtrl(
   }
 
   function formatWeight(v) {
-    return number(v) + "kg"; 
+    return number(nearestQuarter(v)) + "kg"; 
   }
 
   self.exerciseText = function(set) {
@@ -107,6 +113,19 @@ function WorkoutCtrl(
     return d.getDay() + "-" + d.getMonth() + "-" + d.getFullYear();
   }
 
+}
+
+function nearestQuarterDirective() {
+  return {
+    require: "ngModel",
+    link: function(scope, el, attrs, ngModel) {
+      ngModel.$formatters.push(nearestQuarter);
+    }
+  }
+}
+
+function nearestQuarter(x) {
+  return Math.round(x * 4) / 4;
 }
 
 function Storage() {

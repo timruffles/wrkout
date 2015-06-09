@@ -24,7 +24,7 @@
         <input pattern="[\d]+" type=number name=reps ng-model=ctrl.exercise.reps>
         reps at
 
-        <input step="any" pattern="[\d]+(.[\d]+)?" type=number name=weight ng-model=ctrl.exercise.weight>
+        <input nearest-quarter step="any" pattern="[\d]+(.[\d]+)?" type=number name=weight ng-model=ctrl.exercise.weight>
         kg
       </fieldset>
       <fieldset name="overload">
@@ -46,7 +46,7 @@
           <label>
             New Weight
           </label>
-          <span class=output>{{ ctrl.overloadWeight() | number }}kg</span>
+          <span class=output>{{ ctrl.overloadWeight() | nearestQuarter }}kg</span>
         </div>
       </fieldset>
       <fieldset>
