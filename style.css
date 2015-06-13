@@ -62,11 +62,14 @@ input[type=submit] {
 }
 .exercises li {
   width: 100%;
-  background: rgba(255,255,255,0.4);
   padding: 0.5rem;
   margin-bottom: 2px;
   position: relative;
   height: 2em;
+}
+
+.exercises .exercise {
+  background: rgba(255,255,255,0.4);
 }
 
 .exercises .remove {

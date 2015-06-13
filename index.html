@@ -19,41 +19,21 @@
       ng-submit="ctrl.create()"
       >
       <fieldset name="fromOld">
-        <input  name=name ng-model=ctrl.exercise.name>
-        x
+        <input  name=name style='width: 120px' ng-model=ctrl.exercise.name>
+        at
         <input pattern="[\d]+" type=number name=reps ng-model=ctrl.exercise.reps>
-        reps at
-
+        x
         <input nearest-quarter step="any" pattern="[\d]+(.[\d]+)?" type=number name=weight ng-model=ctrl.exercise.weight>
         kg
       </fieldset>
-      <fieldset name="overload">
+      <fieldset name="overload" ng-if="ctrl.previousExercise">
         <div>
           <label>
-            Overload
+            Previous
           </label>
-          <input step="any" pattern="[\d]+(.[\d]+)?" type=number name=percentIncrease ng-model=ctrl.exercise.percentIncrease>
+          <span>{{ ctrl.previousExercise.reps }} x {{ ctrl.previousExercise.weight | nearestQuarter }}kg</span>
+          <span class=output>{{ ctrl.overload() | percentChange }}</span>
         </div>
-
-        <div>
-          <label>
-            New Reps
-          </label>
-          <input pattern="[\d]+" type=number name=overloadReps ng-model=ctrl.exercise.targetReps>
-        </div>
-
-        <div>
-          <label>
-            New Weight
-          </label>
-          <span class=output>{{ ctrl.overloadWeight() | nearestQuarter }}kg</span>
-        </div>
-      </fieldset>
-      <fieldset>
-        <label>
-          Reps Achieved
-        </label>
-        <input pattern="[\d]+" type=number name=actualReps ng-model=ctrl.exercise.actualReps>
 
       </fieldset>
 
@@ -62,9 +42,13 @@
 
     <ul class='exercises'>
       <li ng-repeat='performance in ctrl.performances track by performance.id'
-          ng-click='ctrl.performanceSelected(performance)'>
+          ng-click='ctrl.performanceSelected(performance)'
+          ng-class='{ exercise: !performance.date }'
+          >
         {{ performance.description }}
-        <button class=remove ng-click='ctrl.remove($index)'>
+        <button class=remove
+                ng-if="!performance.date"
+                ng-click='ctrl.remove(performance.exercise)'>
           X
         </button>
       </li>
@@ -73,6 +57,7 @@
   </div>
 
   <script src="angular.js"></script>
+  <script src="angular-locale-enGb.js"></script>
   <script src="lodash.js"></script>
   <script src="app.js"></script>
 </body>
